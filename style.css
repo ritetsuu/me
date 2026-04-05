@@ -1,55 +1,126 @@
+/* --- 1. Variables & Global Styles --- */
 :root {
     --bg-color: #f4f7f6;
     --sidebar-color: #ffffff;
-    --accent-color: #3b82f6;
+    --accent-color: #3b82f6;   /* The Blue color */
     --text-main: #1f2937;
     --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: 'Inter', sans-serif, system-ui;
     background-color: var(--bg-color);
-    display: flex; /* This puts the sidebar and content side-by-side */
+    color: var(--text-main);
+    display: flex; /* Keeps sidebar and content side-by-side */
 }
 
-/* Sidebar */
+/* --- 2. Sidebar Styling --- */
 .sidebar {
-    width: 200px;
-    height: 100vh;
+    width: 240px;
+    height: 100vh; /* Full screen height */
     background: var(--sidebar-color);
-    border-right: 1px solid #e5e7eb;
-    position: fixed;
-    padding: 20px;
+    border-right: 1px solid var(--border-color);
+    position: fixed; /* Stays in place when you scroll content */
+    padding: 2rem 1rem;
+    
+    /* Makes only the sidebar scrollable if you have many links */
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.sidebar h2 {
+.logo {
+    font-size: 1.25rem;
+    font-weight: 700;
     color: var(--accent-color);
-    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    padding-left: 0.8rem;
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 0.4rem;
 }
 
 .sidebar a {
     text-decoration: none;
     color: var(--text-muted);
+    padding: 0.8rem 1rem;
     display: block;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 5px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
 }
 
+/* Hover effect for all links */
 .sidebar a:hover {
     background: #f3f4f6;
     color: var(--text-main);
 }
 
-/* Main Content */
+/* --- 3. The "Active Page" Highlight --- */
+/* Add class="active" to the link in your HTML to turn it blue */
+.sidebar a.active {
+    background: var(--accent-color);
+    color: white;
+}
+
+.sidebar a.active:hover {
+    background: #2563eb; /* Slightly darker blue on hover */
+}
+
+/* --- 4. Main Content Area --- */
 .content {
-    margin-left: 240px; /* Pushes content to the right of the sidebar */
-    padding: 40px;
+    margin-left: 240px; /* Must match the width of the sidebar */
+    padding: 3rem;
+    width: 100%;
+    max-width: 900px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    line-height: 1.6;
     color: var(--text-main);
+}
+
+/* --- 5. Clean Scrollbar for Sidebar --- */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+
+/* --- 6. Basic Mobile Fix --- */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .content {
+        margin-left: 0;
+        padding: 1.5rem;
+    }
 }
