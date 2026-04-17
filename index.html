@@ -2,23 +2,74 @@
 <html>
 <head>
     <link rel="stylesheet" href="style.css">
-    <title>Index</title>
+    <title>Index - Divine Messenger</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Initialize with your actual Public Key
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
 </head>
 <body>
     <nav class="sidebar">
-    <h2>Categories</h2>
-    <ul>
-        <li><a href="index.html" class="active">Index</a></li>
-        <li><a href="home.html">Home</a></li>
-        <li><a href="writtenworks.html">Written Works</a></li>
-        <li><a href="robloxprojects.html">Roblox Projects</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li> <!-- rememeber to updae through all the files omds im gonna crash out -->
-    </ul>
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="index.html" class="active">Index</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="writtenworks.html">Written Works</a></li>
+            <li><a href="robloxprojects.html">Roblox Projects</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+        </ul>
     </nav>
 
     <div class="content">
         <h1>Welcome to my Homepage</h1>
         <p>This is the Index Page. Where I try to help you find your way around.</p>
+        
+        <hr>
+
+        <div class="petition-box">
+            <h3>Send a Petition to the Goddess</h3>
+            <p>If the envy of the Elves and Dwarves grows too heavy, leave your mark here.</p>
+            
+            <form id="contact-form">
+                <div style="margin-bottom: 10px;">
+                    <label for="user_email">Your Email:</label><br>
+                    <input type="email" name="user_email" id="user_email" required placeholder="mortal@plains.com" style="width: 80%; padding: 8px;">
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label for="message">Your Message:</label><br>
+                    <textarea name="message" id="message" rows="4" style="width: 80%; padding: 8px;" placeholder="Speak of peace..."></textarea>
+                </div>
+                <button type="submit" id="send-btn" style="padding: 10px 20px; cursor: pointer;">Confirm & Send</button>
+            </form>
+            <p id="status-message"></p>
+        </div>
     </div>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const btn = document.getElementById('send-btn');
+            const status = document.getElementById('status-message');
+            
+            btn.innerText = "Sending...";
+            
+            // serviceID, templateID, and the form element
+            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                .then(function() {
+                    status.innerText = "Petition sent. Peace may yet return.";
+                    status.style.color = "gold";
+                    btn.innerText = "Confirm & Send";
+                    document.getElementById('contact-form').reset();
+                }, function(error) {
+                    status.innerText = "The connection to the Peaks failed.";
+                    status.style.color = "red";
+                    btn.innerText = "Confirm & Send";
+                });
+        });
+    </script>
 </body>
 </html>
